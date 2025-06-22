@@ -1,7 +1,5 @@
 const Listing= require("../models/listing.js");
-const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const maptoken = process.env.MAP_TOKEN;
-const geocodingClient = mbxGeocoding({ accessToken: maptoken });
+
 module.exports.index= async (req,res) =>{
     const allListings= await Listing.find({});
     res.render("listings/index.ejs",{allListings});
@@ -25,21 +23,29 @@ module.exports.showListing=async (req, res) => {
     }
     res.render("listings/show.ejs", { listing }); // ✅ only runs if listing exists
 }
-module.exports.createListing=async (req, res) => {
-  let response= await geocodingClient.forwardGeocode({
-  query: req.body.listing.location,
-  limit: 1,
-}).send();
-    let url=req.file.path;
-    let filename= req.file.filename;
-    const newListing= new Listing(req.body.listing);
-    newListing.owner=req.user._id;
-    newListing.image={url,filename};
-    newListing.geometry=response.body.features[0].geometry;
+module.exports.createListing = async (req, res, next) => {
+  try {
+    const { path, filename } = req.file;
+
+    const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
+    newListing.image = { url: path, filename };
+
+    // Remove Mapbox geocoding, but keep geometry if provided in req.body.listing.geometry (optional)
+    // Or you can just skip setting geometry entirely here
+    // For example:
+    // newListing.geometry = req.body.listing.geometry; // if you send it from the form
+
     await newListing.save();
-    req.flash("success","new listing created");
+    req.flash("success", "New listing created!");
     res.redirect("/listings");
-}
+  } catch (err) {
+    console.error("❌ Error in createListing:", err.message);
+    next(err);
+  }
+};
+
+
 module.exports.renderEditForm= async(req,res) =>{
      let {id}= req.params;
     const listing= await Listing.findById(id);

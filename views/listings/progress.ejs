@@ -1,0 +1,154 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffff, #00ffab);
+    width: 0%;
+    transition: width 1.5s ease-in-out;
+  }
+
+  .editable {
+    outline: none;
+    background: transparent;
+    border: none;
+    color: #00ffab;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 4px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .editable:focus {
+    border-bottom: 1px dashed #00ffab;
+  }
+
+  .goal-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .progress-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .progress-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+
+  .card-header {
+    font-weight: 600;
+    font-size: 1.2rem;
+    background: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #00ffff;
+  }
+
+  .card-body .percentage {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #ccc;
+    margin-top: 0.3rem;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h1 class="title">📈 Your Daily Wellness Progress</h1>
+    <p class="tagline">Stay on track. Every small step matters.</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Workout -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card progress-card h-100">
+        <div class="card-header"><span class="goal-icon">🏃‍♂️</span> Workout Duration</div>
+        <div class="card-body">
+          <input class="editable" value="45 / 60 mins" />
+          <div class="progress mt-2" style="height: 18px;">
+            <div class="progress-fill" style="width: 75%;"></div>
+          </div>
+          <div class="percentage">75%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Water -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card progress-card h-100">
+        <div class="card-header"><span class="goal-icon">💧</span> Water Intake</div>
+        <div class="card-body">
+          <input class="editable" value="2.5 / 3 L" />
+          <div class="progress mt-2" style="height: 18px;">
+            <div class="progress-fill" style="width: 83%;"></div>
+          </div>
+          <div class="percentage">83%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sleep -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card progress-card h-100">
+        <div class="card-header"><span class="goal-icon">😴</span> Sleep Hours</div>
+        <div class="card-body">
+          <input class="editable" value="6.5 / 8 hrs" />
+          <div class="progress mt-2" style="height: 18px;">
+            <div class="progress-fill" style="width: 81.25%;"></div>
+          </div>
+          <div class="percentage">81%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meditation -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card progress-card h-100">
+        <div class="card-header"><span class="goal-icon">🧘</span> Meditation</div>
+        <div class="card-body">
+          <input class="editable" value="10 / 20 mins" />
+          <div class="progress mt-2" style="height: 18px;">
+            <div class="progress-fill" style="width: 50%;"></div>
+          </div>
+          <div class="percentage">50%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Journaling -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card progress-card h-100">
+        <div class="card-header"><span class="goal-icon">📝</span> Journaling</div>
+        <div class="card-body">
+          <input class="editable" value="1 / 1 entry" />
+          <div class="progress mt-2" style="height: 18px;">
+            <div class="progress-fill" style="width: 100%;"></div>
+          </div>
+          <div class="percentage">100%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Animate bars on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    const bars = document.querySelectorAll(".progress-fill");
+    bars.forEach(bar => {
+      const width = bar.style.width;
+      bar.style.width = "0%";
+      setTimeout(() => {
+        bar.style.width = width;
+      }, 100);
+    });
+  });
+</script>
+

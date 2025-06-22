@@ -1,0 +1,56 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+ .btn {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="stars" id="stars"></div>
+  <div class="particles" id="particles"></div>
+  <div class="wireframe"></div>
+  <div class="geometric-bg">
+    <div class="floating-shape" style="width: 140px; height: 140px; top: 20%; left: 10%; border: 1px solid #00ffff;"></div>
+    <div class="floating-shape" style="width: 100px; height: 100px; top: 60%; right: 15%; border: 1px solid #ff6b6b; border-radius: 50%;"></div>
+  </div>
+
+
+
+  <!-- Content -->
+  <main class="container">
+    <h1 class="title">  Welcome to WanderLust</h1>
+    <p class="tagline">Empower your mind & body</p>
+    <p class="description">
+      Track your wellness goals, update daily habits, and stay inspired. 
+      With mood logs, hydration checks, and progress tracking — this is your personalized control center for a better you.
+    </p>
+
+    <% if (!currUser) { %>
+      <div class="btn-group">
+        <a href="/login" class="btn btn-primary">Login</a>
+        <a href="/signup" class="btn btn-secondary">Sign Up</a>
+      </div>
+    <% } else { %>
+      <div class="btn-group">
+        <a href="/listings" class="btn btn-primary">Explore</a>
+      </div>
+    <% } %>
+
+    <div class="info-grid">
+  <div class="info-box">You can Set Daily Goals</div>
+  <div class="info-box">Log Your Mood</div>
+  <div class="info-box">Track Hydration</div>
+  <div class="info-box">Progress Bar Insights</div>
+</div>
+
+  </main>
+
+</body>
+</html>
